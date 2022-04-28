@@ -25,7 +25,6 @@ CREATE TABLE libros(
 CREATE TABLE prestamos(
     socio VARCHAR(30) NOT NULL,
     isbn_1 VARCHAR(30) NOT NULL,
-    libro VARCHAR(150),
     fecha_prestamo DATE NOT NULL,
     fecha_devolucion DATE,
     FOREIGN KEY (socio) REFERENCES socios(rut),
@@ -91,8 +90,8 @@ SELECT * FROM libros;
 -- (0 rows)
 
 SELECT * FROM prestamos;
---  socio | isbn_1 | libro | fecha_prestamo | fecha_devolucion
--- -------+--------+-------+----------------+------------------
+--  socio | isbn_1 | fecha_prestamo | fecha_devolucion
+-- -------+--------+----------------+------------------
 -- (0 rows)
 
 SELECT * FROM socios;
@@ -245,4 +244,26 @@ SELECT * FROM identidad_autores;
 --  333-3333333-333 |        2 |             1
 --  444-4444444-444 |        5 |             1
 -- (5 rows)
+
+
+
+-- Ejercicios
+--a.- Mostrar todos los libros que posean menos de 300 páginas
+SELECT * FROM libros WHERE paginas < 300;
+
+--       isbn       |         titulo         | paginas 
+-- -----------------+------------------------+---------
+--  222-2222222-222 | POESÍAS CONTEMPORANEAS |     167
+--  444-4444444-444 | MANUAL DE MECANICA     |     298
+-- (2 rows)
+
+SELECT * FROM autores WHERE año_nacimiento >= '1970';
+
+--  codigo_autor | nombre_autor | apellido_autor | año_nacimiento | año_muerte 
+-- --------------+--------------+----------------+----------------+------------
+--             4 | ANA          | SALGADO        | 1972           |
+--             1 | ANDRES       | ULLOA          | 1982           |
+--             5 | MARTIN       | PORTA          | 1976           |
+-- (3 rows)
+
 
