@@ -44,8 +44,8 @@ CREATE TABLE autores(
 
 -- creamos la tabla tipo_autor
 CREATE TABLE tipo_autor(
-    id INT NOT NULL UNIQUE,
-    tipo_autor VARCHAR(15),
+    id SMALLINT NOT NULL UNIQUE,
+    tipo_autor VARCHAR(20),
     PRIMARY KEY(id)
 );
 
@@ -143,7 +143,7 @@ VALUES('444-4444444-444', 'MANUAL DE MECANICA', '298');
 --consultamos la tabla libros
 SELECT * FROM libros;
 
---  isbn       |         titulo         | paginas
+--       isbn       |         titulo         | paginas
 -- -----------------+------------------------+---------
 --  111-1111111-111 | CUENTOS DE TERROR      |     344
 --  222-2222222-222 | POESÍAS CONTEMPORANEAS |     167
@@ -166,7 +166,7 @@ VALUES ('5', 'MARTIN', 'PORTA', '1976', ' ');
 -- consultamos la tabla autores
 SELECT * FROM autores;
 
---  codigo_autor | nombre_autor | apellido_autor | agno_nacimiento | agno_muerte
+--  codigo_autor | nombre_autor | apellido_autor | año_nacimiento | año_muerte
 -- --------------+--------------+----------------+-----------------+-------------
 --             3 | JOSÉ         | SALGADO        | 1968            | 2020
 --             4 | ANA          | SALGADO        | 1972            |
@@ -205,6 +205,44 @@ SELECT * FROM prestamos;
 --  3333333-3 | 222-2222222-222 |       | 2020-01-31     | 2020-02-02
 -- (7 rows)
 
--- Insertamos registros en la tabla identidad autores
+-- insertamos registros en tabla tipo_autor
+INSERT INTO tipo_autor (id, tipo_autor)
+VALUES ('1', 'PRINCIPAL');
+INSERT INTO tipo_autor (id, tipo_autor)
+VALUES ('2', 'COAUTOR');
 
+-- consultamos la tabla tipo autor
+SELECT * FROM tipo_autor;
+
+-- id | tipo_autor
+-- ----+------------
+--   1 | PRINCIPAL
+--   2 | COAUTOR
+-- (2 rows)
+
+
+
+-- Insertamos registros en la tabla identidad_autores
+INSERT INTO identidad_autores (isbn_2, id_autor, id_tipo_autor)
+VALUES ('111-1111111-111', '3', '1');
+INSERT INTO identidad_autores (isbn_2, id_autor, id_tipo_autor)
+VALUES ('111-1111111-111', '4', '2');
+INSERT INTO identidad_autores (isbn_2, id_autor, id_tipo_autor)
+VALUES ('222-2222222-222', '1','1');
+INSERT INTO identidad_autores (isbn_2, id_autor, id_tipo_autor)
+VALUES ('333-3333333-333', '2', '1');
+INSERT INTO identidad_autores (isbn_2, id_autor, id_tipo_autor)
+VALUES ('444-4444444-444', '5', '1');
+
+--consultamos la tabla identidad_autores
+SELECT * FROM identidad_autores; 
+
+--     isbn_2      | id_autor | id_tipo_autor
+-- -----------------+----------+---------------
+--  111-1111111-111 |        3 |             1
+--  111-1111111-111 |        4 |             2
+--  222-2222222-222 |        1 |             1
+--  333-3333333-333 |        2 |             1
+--  444-4444444-444 |        5 |             1
+-- (5 rows)
 
