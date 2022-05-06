@@ -266,4 +266,41 @@ SELECT * FROM autores WHERE año_nacimiento >= '1970';
 --             5 | MARTIN       | PORTA          | 1976           |
 -- (3 rows)
 
+-- c ¿Cúal es el libro más solicitado?
 
+SELECT prestamos.isbn_1,libros.titulo,
+COUNT(isbn_1) veces_solicitado
+FROM libros
+INNER JOIN prestamos
+ON prestamos.isbn_1 = libros.isbn
+GROUP BY prestamos.isbn_1, libros.titulo
+ORDER BY veces_solicitado DESC;
+
+--      isbn_1      |         titulo         | veces_solicitado 
+-- -----------------+------------------------+------------------
+--  222-2222222-222 | POESÍAS CONTEMPORANEAS |                2
+--  111-1111111-111 | CUENTOS DE TERROR      |                2
+--  333-3333333-333 | HISTORIA DE ASIA       |                2
+--  444-4444444-444 | MANUAL DE MECANICA     |                1
+-- (4 rows)
+
+-- d si se cobrara unba multa de $ 100 por cada día de atraso, mostrar cuánto atraso debería pagar
+-- cada usuario que entregue el préstamo después de 7 días. 
+
+SELECT socio,
+socios.nombre,
+socios.apellido,
+(fecha_devolucion - fecha_prestamo - 7) AS días_retraso,
+((fecha_devolucion - fecha_prestamo - 7) * 100) AS multa
+FROM prestamos
+INNER JOIN socios
+ON socios.rut = prestamos.socio
+WHERE (fecha_devolucion - fecha_prestamo) > 7;
+
+--    socio   | nombre  | apellido | días_retraso | multa 
+-- -----------+---------+----------+--------------+-------
+--  5555555-5 | SILVANA | MUÑOZ    |            3 |   300
+--  4444444-4 | ESTEBAN | JEREZ    |            1 |   100
+--  2222222-2 | ANA     | PÉREZ    |            1 |   100
+--  1111111-1 | JUAN    | SOTO     |            5 |   500
+-- (4 rows)
